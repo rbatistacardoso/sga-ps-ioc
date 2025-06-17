@@ -1,0 +1,139 @@
+# Sorensen SG Series Protocol File for EPICS StreamDevice
+# This file defines the main queries (power, current, voltage) and status commands.
+# Real time output data is provided.
+# Ramp mode commands are intentionally omitted.
+# Use este arquivo para controlar o dispositivo remotamente com comandos SCPI.
+
+Terminator = CR LF;
+
+#-----------------------------------------------------------------
+# Query device identification string
+# Returns a string with manufacturer, model, serial number, and firmware versions.
+#-----------------------------------------------------------------
+getInfo {
+    # Optional initialization commands:
+    # @init {
+    #    out "*CLS";
+    #    out "*RST";
+    # }
+    out "IDN?"; in "%s";
+}
+
+#-----------------------------------------------------------------
+# Set device to remote mode
+# This command forces the device into remote operation.
+#-----------------------------------------------------------------
+setRemote {
+    @init {
+        out "*CLS";
+        out "*RST";
+    }
+    out "SYST:LOCAL 0";
+}
+
+#-----------------------------------------------------------------
+# Query the device remote/local state
+# Returns an integer: 0 = remote, 1 = local.
+#-----------------------------------------------------------------
+getRemote {
+    # @init {
+    #    out "*CLS";
+    #    out "*RST";
+    # }
+    out "SYST:LOCAL?"; in "%i";
+}
+
+#-----------------------------------------------------------------
+# Set current output
+# Set the output current to a specified value in Amps.
+# Example: setCurrent with 2.5 sets the output to 2.5 A.
+#-----------------------------------------------------------------
+setCurrent {
+    @init {
+        out "*CLS";
+        out "*RST";
+    }
+    out "SOUR:CURR %f";
+}
+
+#-----------------------------------------------------------------
+# Query current output
+# Retrieves the real time output current in Amps.
+#-----------------------------------------------------------------
+getCurrent {
+    @init {
+        out "*CLS";
+        out "*RST";
+    }
+    out "SOURCE:CURRENT?"; in "%f";
+}
+
+#-----------------------------------------------------------------
+# Set voltage output
+# Set the output voltage to a specified value in Volts.
+#-----------------------------------------------------------------
+setVoltage {
+    @init {
+        out "*CLS";
+        out "*RST";
+    }
+    out "SOUR:VOLT %f";
+}
+
+#-----------------------------------------------------------------
+# Query voltage output
+# Retrieves the real time output voltage in Volts.
+#-----------------------------------------------------------------
+getVoltage {
+    @init {
+        out "*CLS";
+        out "*RST";
+    }
+    out "SOURCE:VOLTAGE?"; in "%f";
+}
+
+#-----------------------------------------------------------------
+# Query power measurement (SGI only)
+# Retrieves the real time power reading in Watts.
+# Note: Only available on SGI models.
+#-----------------------------------------------------------------
+getPower {
+    @init {
+        out "*CLS";
+        out "*RST";
+    }
+    out "SOUR:POW?"; in "%f";
+}
+
+#-----------------------------------------------------------------
+# Query device status
+# Reads the SCPI status byte which provides real time status flags.
+#-----------------------------------------------------------------
+getStatus {
+    out "*STB?"; in "%i";
+}
+
+#-----------------------------------------------------------------
+# Query error/event queue
+# Retrieves the next error message from the error/event queue.
+# A return of "0" indicates no error.
+#-----------------------------------------------------------------
+getError {
+    out "SYST:ERR?"; in "%s";
+}
+
+#-----------------------------------------------------------------
+# Measure voltage (additional precise reading)
+# Returns a floating point value of the measured voltage.
+#-----------------------------------------------------------------
+measVoltage {
+    out "MEAS:VOLTAGE?"; in "%f";
+}
+
+#-----------------------------------------------------------------
+# Measure current (additional precise reading)
+# Returns a floating point value of the measured current.
+#-----------------------------------------------------------------
+measCurrent {
+    out "MEAS:CURR?"; in "%f";
+}

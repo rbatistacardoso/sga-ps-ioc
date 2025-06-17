@@ -1,0 +1,135 @@
+record (bo, "SGI2:setRemote")
+{
+	field (DESC, "Set SGI2 Remote")
+	field (ZNAM, "SGI2 setRemote")
+	field (ONAM, "SGI2 setRemote")
+	field (SCAN, "Passive")
+	field (DTYP, "stream")
+	field (OUT, "@SGI.proto setRemote SGI2")
+	field (FLNK, "SGI2:getRemote")
+}
+
+record (bi, "SGI2:getRemote")
+{
+	field (DESC, "Get SGI2 Remote")
+	field (ZNAM, "SGI2 Remote 0")
+	field (ONAM, "SGI2 Remote 1")
+	field (SCAN, "Passive")
+	field (DTYP, "stream")
+	field (INP, "@SGI.proto getRemote SGI2")
+}
+
+record (bo, "SGI2:setCurrent")
+{
+	field (DESC, "Set SGI2 Current to 188A")
+	field (ZNAM, "SGI2 current 188A")
+	field (ONAM, "SGI2 current 188A")
+	field (SCAN, "Passive")
+	field (DTYP, "stream")
+	field (OUT, "@SGI.proto setCurrent SGI2")
+	field (FLNK, "SGI2:getCurrent")
+}
+
+record (ai, "SGI2:getCurrent")
+{
+	field (DESC, "Get SGI2 Set Current")
+	field (SCAN, "Passive")
+	field (DTYP, "stream")
+	field (INP, "@SGI.proto getCurrent SGI2")
+}
+
+record (bo, "SGI2:setVoltage")
+{
+	field (DESC, "Set SGI2 Voltage to 0")
+	field (ZNAM, "SGI2 Voltage 0V")
+	field (ONAM, "SGI2 Voltage 0V")
+	field (SCAN, "Passive")
+	field (DTYP, "stream")
+	field (OUT, "@SGI.proto setVoltageZero SGI2")
+	field (FLNK, "SGI2:getVoltage")
+}
+
+record (ai, "SGI2:getVoltage")
+{
+	field (DESC, "Get SGI2 Set Voltage")
+	field (SCAN, "Passive")
+	field (DTYP, "stream")
+	field (INP, "@SGI.proto getVoltage SGI2")
+}
+
+record (bo, "SGI2:setProtVoltage")
+{
+	field (DESC, "Set SGI2 Protection Voltage")
+	field (ZNAM, "SGI2 protVoltage 88V")
+	field (ONAM, "SGI2 protVoltage 88V")
+	field (SCAN, "Passive")
+	field (DTYP, "stream")
+	field (OUT, "@SGI.proto setProtVoltage SGI2")
+	field (FLNK, "SGI2:getProtVoltage")
+}
+
+record (ai, "SGI2:getProtVoltage")
+{
+	field (DESC, "Get SGI2 Protection")
+	field (SCAN, "Passive")
+	field (DTYP, "stream")
+	field (INP, "@SGI.proto getProtVoltage SGI2")
+}
+
+record (ai, "SGI2:getOutCurrent")
+{
+	field (DESC, "Get SGI2 Output Current")
+	field (SCAN, ".5 second")
+	field (DTYP, "stream")
+	field (INP, "@SGI.proto getOutCurrent SGI2")
+}
+
+record (ai, "SGI2:getOutVoltage")
+{
+	field (DESC, "Get SGI2 Output Voltage")
+	field (SCAN, ".5 second")
+	field (DTYP, "stream")
+	field (INP, "@SGI.proto getOutVoltage SGI2")
+}
+
+record (ai, "SGI2:getOutPower")
+{
+	field (DESC, "Get SGI2 Output Power")
+	field (SCAN, ".5 second")
+	field (DTYP, "stream")
+	field (INP, "@SGI.proto getOutPower SGI2")
+}
+
+record (bi, "SGI2:getStatus")
+{
+	field (DESC, "Get SGI2 Status")
+	field (ZNAM, "SGI2 Off")
+	field (ONAM, "SGI2 On")
+	field (SCAN, "Passive")
+	field (DTYP, "stream")
+	field (INP, "@SGI.proto getStatus SGI2")
+}
+
+record (bo, "SGI2:setOutOff")
+{
+	field (DESC, "Set SGI2 Outpu Off")
+	field (ZNAM, "SGI2 outOff 0")
+	field (ONAM, "SGI2 outOff 1")
+	field (SCAN, "Passive")
+	field (DTYP, "stream")
+	field (OUT, "@SGI.proto setOutOff SGI2")
+	field (FLNK, "SGI2:getStatus")
+}
+
+record (bo, "SGI2:setOutOn")
+{
+	field (DESC, "Set SGI2 Output On")
+	field (ZNAM, "SGI2 outOn 0")
+	field (ONAM, "SGI2 outOn 1")
+	field (SCAN, "Passive")
+	field (DTYP, "stream")
+	field (OUT, "@SGI.proto setOutOn SGI2")
+	field (FLNK, "SGI2:getStatus")
+}
+
+
