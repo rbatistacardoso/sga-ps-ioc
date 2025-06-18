@@ -1,0 +1,180 @@
+record (bo, "SGI:setRemote")
+{
+	field (DESC, "Set SGI Remote")
+	field (ZNAM, "SGI setRemote")
+	field (ONAM, "SGI setRemote")
+	field (SCAN, "Passive")
+	field (DTYP, "stream")
+	field (OUT, "@SGI.proto setRemote $(port)")
+	field (FLNK, "SGI:getRemote")
+}
+
+record (bi, "SGI:getRemote")
+{
+	field (DESC, "Get SGI Remote")
+	field (ZNAM, "SGI Remote 0")
+	field (ONAM, "SGI Remote 1")
+	field (SCAN, "Passive")
+	field (DTYP, "stream")
+	field (INP, "@SGI.proto getRemote $(port)")
+}
+
+record (bo, "SGI:setCurrent")
+{
+	field (DESC, "Set SGI Current to 188A")
+	field (ZNAM, "SGI current 188A")
+	field (ONAM, "SGI current 188A")
+	field (SCAN, "Passive")
+	field (DTYP, "stream")
+	field (OUT, "@SGI.proto setCurrent $(port)")
+	field (FLNK, "SGI:getCurrent")
+}
+
+record (ai, "SGI:getCurrent")
+{
+	field (DESC, "Get SGI Set Current")
+	field (SCAN, "Passive")
+	field (DTYP, "stream")
+	field (INP, "@SGI.proto getCurrent $(port)")
+}
+
+record (bo, "SGI:setVoltage")
+{
+	field (DESC, "Set SGI Voltage to 0")
+	field (ZNAM, "SGI Voltage 0V")
+	field (ONAM, "SGI Voltage 0V")
+	field (SCAN, "Passive")
+	field (DTYP, "stream")
+	field (OUT, "@SGI.proto setVoltageZero $(port)")
+	field (FLNK, "SGI:getVoltage")
+}
+
+record (ai, "SGI:getVoltage")
+{
+	field (DESC, "Get SGI Set Voltage")
+	field (SCAN, "Passive")
+	field (DTYP, "stream")
+	field (INP, "@SGI.proto getVoltage $(port)")
+}
+
+record (bo, "SGI:setProtVoltage")
+{
+	field (DESC, "Set SGI Protection Voltage")
+	field (ZNAM, "SGI protVoltage 88V")
+	field (ONAM, "SGI protVoltage 88V")
+	field (SCAN, "Passive")
+	field (DTYP, "stream")
+	field (OUT, "@SGI.proto setProtVoltage $(port)")
+	field (FLNK, "SGI:getProtVoltage")
+}
+
+record (ai, "SGI:getProtVoltage")
+{
+	field (DESC, "Get SGI Protection")
+	field (SCAN, "Passive")
+	field (DTYP, "stream")
+	field (INP, "@SGI.proto getProtVoltage $(port)")
+}
+
+record (bi, "SGI:getStatus")
+{
+	field (DESC, "Get SGI Status")
+	field (ZNAM, "SGI Off")
+	field (ONAM, "SGI On")
+	field (SCAN, "Passive")
+	field (DTYP, "stream")
+	field (INP, "@SGI.proto getStatus $(port)")
+}
+
+record (bo, "SGI:setOutOff")
+{
+	field (DESC, "Set SGI Outpu Off")
+	field (ZNAM, "SGI outOff 0")
+	field (ONAM, "SGI outOff 1")
+	field (SCAN, "Passive")
+	field (DTYP, "stream")
+	field (OUT, "@SGI.proto setOutOff $(port)")
+	field (FLNK, "SGI:getStatus")
+}
+
+record (bo, "SGI:setOutOn")
+{
+	field (DESC, "Set SGI Output On")
+	field (ZNAM, "SGI outOn 0")
+	field (ONAM, "SGI outOn 1")
+	field (SCAN, "Passive")
+	field (DTYP, "stream")
+	field (OUT, "@SGI.proto setOutOn $(port)")
+	field (FLNK, "SGI:getStatus")
+}
+
+record (ai, "SGI:getCurrent")
+{
+	field (DESC, "Get SGI Set Current")
+	field (SCAN, "1 second")
+	field (DTYP, "stream")
+	field (INP,  "@sgi.proto getCurrent $(port)")
+}
+
+######## RECORDS DE ESCRITA NO CLP E SUAS RESPECTIVAS LEITURAS DA FONTE #############
+
+# ----------------------------------------------------------------------------------------------------------
+
+record (ai, "SGI:getOutCurrent")
+{
+	field (DESC, "Get SGI Output Current")
+	field (SCAN, ".5 second")
+	field (DTYP, "stream")
+	field (INP, "@SGI.proto getOutCurrent $(port)")
+	field (FLNK, "WRITE_ON_IOC_TENSAO_FONTE_02")
+}
+record(calcout, "WRITE_ON_IOC_CORRENTE_FONTE_02") {
+	field(DESC, "Write SGI current to IOC_TENSAO_FONTE_02")
+	field(SCAN, "Passive")
+	field(INPA, "SGI:getOutCurrent.VAL")  # Get the value from the source record
+	field(CALC, "A")                   # Calculation is simply to pass the input value (A) through
+	field(OUT,  "IOC_TENSAO_CORRENTE_02") # The destination PV on the remote IOC
+}
+
+# ----------------------------------------------------------------------------------------------------------
+
+record (ai, "SGI:getOutVoltage")
+{
+	field (DESC, "Get SGI Output Voltage")
+	field (SCAN, ".5 second")
+	field (DTYP, "stream")
+	field (INP, "@SGI.proto getOutVoltage $(port)")
+	field (FLNK, "WRITE_ON_IOC_TENSAO_FONTE_02")
+}
+
+
+record(calcout, "WRITE_ON_IOC_TENSAO_FONTE_02") {
+	field(DESC, "Write SGI current to IOC_TENSAO_FONTE_02")
+	field(SCAN, "Passive")
+	field(INPA, "SGI:getOutCurrent.VAL")  # Get the value from the source record
+	field(CALC, "A")                   # Calculation is simply to pass the input value (A) through
+	field(OUT,  "IOC_TENSAO_FONTE_02") # The destination PV on the remote IOC
+}
+
+# ----------------------------------------------------------------------------------------------------------
+
+record (ai, "SGI:getOutPower")
+{
+	field (DESC, "Get SGI Output Power")
+	field (SCAN, ".5 second")
+	field (DTYP, "stream")
+	field (INP, "@SGI.proto getOutPower $(port)")
+	field (FLNK, "WRITE_ON_IOC_POTENCIA_FONTE_02")
+}
+
+record(calcout, "WRITE_ON_IOC_POTENCIA_FONTE_02") {
+	field(DESC, "Write current to CLP")
+	field(SCAN, "Passive")
+	field(INPA, "SGI:getOutCurrent.VAL")  # Get the value from the source record
+	field(CALC, "A")                   # Calculation is simply to pass the input value (A) through
+	field(OUT,  "IOC_POTENCIA_FONTE_02") # The destination PV on the remote IOC
+}
+
+# ----------------------------------------------------------------------------------------------------------
+
+
