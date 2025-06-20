@@ -6,9 +6,10 @@ epicsEnvSet("STREAM_PROTOCOL_PATH", "../protocol")
 dbLoadDatabase("${STREAMDEVICE}/dbd/streamApp.dbd")
 streamApp_registerRecordDeviceDriver(pdbbase)
 
-drvAsynIPPortConfigure("PS1", "192.168.1.101:9221")
+drvAsynIPPortConfigure("PS1", "192.168.1.100:9221")
+drvAsynIPPortConfigure("PS2", "192.168.1.233:9221")
 
-#dbLoadRecords("../db/sga.db", "port = PS1")
-dbLoadRecords("../db/sga.db", "port = PS1")
+dbLoadRecords("../db/ps.db", "port = PS1, PS = SGI")
+dbLoadRecords("../db/ps.db", "port = PS2, PS = SGA")
 
 iocInit

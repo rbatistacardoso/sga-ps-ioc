@@ -1,0 +1,90 @@
+# Common SCPI commands for Sorensen SGI and SGA series via StreamDevice
+
+Terminator = CR LF;
+
+# Set remote (1) or local (0) control mode based on PV value (bo VAL)
+setRemoteMode {
+    out "%{SYST:LOCAL 0|SYST:LOCAL 1}";  # 1 → remote, 0 → local
+}
+
+# Clear errors (recommended at init), optionally reset device (commented)
+setRemote {
+    @init {
+        out "*CLS";         # Clear status and error queue
+#       out "*RST";         # Full reset – dangerous if uncommented
+    }
+}
+
+# Query current control mode (returns 0 = local, 1 = remote)
+getRemote {
+    out "SYST:LOCAL?";
+	in "%i";
+}
+
+# Set output current setpoint to a fixed value (188.0 A)
+setCurrent {
+    out "SOUR:CURR %f";
+}
+
+# Query configured output current setpoint
+getCurrent {
+    out "SOURCE:CURRENT?";
+    in "%f";
+}
+
+# Set output voltage to 0.0 V (e.g. for zeroing before output ON)
+setVoltageZero {
+    out "SOUR:VOLT %f";
+}
+
+# Query programmed voltage setpoint
+getVoltage {
+    out "SOURCE:VOLTAGE?";
+    in "%f";
+}
+
+# Set over-voltage protection level
+setProtVoltage {
+    out "SOUR:VOLT:PROT %f";
+}
+
+# Query over-voltage protection threshold
+getProtVoltage {
+    out "SOUR:VOLT:PROT?";
+	in "%f";
+}
+
+# Query live output current (what is actually being drawn)
+getOutCurrent {
+    out "MEASURE:CURRENT?";
+    in "%f";
+}
+
+# Query live output voltage (actual V delivered at terminals)
+getOutVoltage {
+    out "MEASURE:VOLTAGE?";
+    in "%f";
+}
+
+# Query real-time output power (W = V × A)
+getOutPower {
+    out "MEASURE:POWER?";
+	in "%f";
+}
+
+# Query output state: 1 = ON, 0 = OFF
+getStatus {
+    out "OUTP:STAT?";
+	in "%i";
+}
+
+# Turn output OFF (relay opens)
+setOutOff {
+    out "OUTP:STAT OFF";
+}
+
+# Turn output ON (relay closes)
+setOutputState {
+    out "OUTP:STAT %{ON|OFF}";
+}
+
