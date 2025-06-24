@@ -1,0 +1,12 @@
+version: "3.8"
+
+services:
+  epics_ioc:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: power_supplies_ioc
+    network_mode: host
+    restart: unless-stopped
+    # The IOC’s ENTRYPOINT (run_ioc.sh) is inherited from the Dockerfile.
+    # Logs will go to stdout/stderr; capture with `docker logs epics_ioc`.

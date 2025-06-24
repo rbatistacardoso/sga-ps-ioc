@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ##############################################################################
 # EPICS Base + modules installer
-#  * Base 7.0.8 (default)          – https://epics-controls.org/download/base
+#  * Base 7.0.9 (default)          – https://epics-controls.org/download/base
 #  * asyn R4-45                    – https://github.com/epics-modules/asyn
 #  * s7plc 1.5.2                   – https://github.com/paulscherrerinstitute/s7plc
 #
@@ -12,14 +12,14 @@
 set -euo pipefail
 
 # ---------- Versions --------------------------------------------------------
-EPICS_BASE_VERSION="7.0.8"
+EPICS_BASE_VERSION="7.0.9"
 ASYN_VERSION="R4-45"
 STREAMDEV_VERSION="2.8.26"
 S7PLC_VERSION="1.5.2"
 
 # ---------- Architecture / paths -------------------------------------------
 EPICS_HOST_ARCH="linux-x86_64"
-EPICS_ROOT="/opt/epics-${EPICS_BASE_VERSION}"
+EPICS_ROOT="/opt/epics-R${EPICS_BASE_VERSION}"
 EPICS_BASE_DIR="${EPICS_ROOT}/base"
 EPICS_MODULES="${EPICS_ROOT}/modules"
 JOBS=$(nproc)
@@ -84,7 +84,7 @@ base_install() {
         # Download and unpack
         curl -L "https://epics-controls.org/download/base/base-${EPICS_BASE_VERSION}.tar.gz" -o base.tar.gz
         tar -xzf base.tar.gz
-        cp -r base-7.0.8/* base
+        cp -r base-${EPICS_BASE_VERSION}/* base
         rm base.tar.gz
         rm -r "./base-${EPICS_BASE_VERSION}"
         cd base || exit

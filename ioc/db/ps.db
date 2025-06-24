@@ -1,3 +1,11 @@
+record (bo, "$(PS):setRemote")
+{
+	field (DESC, "Set Remote Mode")
+	field (SCAN, "Passive")
+	field (DTYP, "stream")
+	field (OUT, "@common.proto setRemote $(port)")
+}
+
 record(bo, "$(PS):remoteMode")
 {
     field(DESC, "Remote(0) / Local(1) mode control")
@@ -11,113 +19,110 @@ record(bo, "$(PS):remoteMode")
 
 record (bi, "$(PS):getRemote")
 {
-	field (DESC, "Get SGA Remote")
-	field (ZNAM, "Remote")
-	field (ONAM, "Local")
-	field (SCAN, "Passive")
-	field (DTYP, "stream")
-	field (INP, "@common.proto getRemote $(port)")
+	field(DESC, "Get SGA Remote")
+	field(ZNAM, "Remote")
+	field(ONAM, "Local")
+	field(SCAN, "Passive")
+	field(DTYP, "stream")
+	field(INP, "@common.proto getRemote $(port)")
 }
 
 record (ao, "$(PS):setCurrent")
 {
-	field (DESC, "Set SGA Current to 188A")
-	field (SCAN, "Passive")
-	field (DTYP, "stream")
-	field (OUT, "@common.proto setCurrent $(port)")
-	field (FLNK, "$(PS):getCurrent")
+	field(DESC, "Set SGA Current to 188A")
+	field(SCAN, "Passive")
+	field(DTYP, "stream")
+	field(OUT, "@common.proto setCurrent $(port)")
+	field(FLNK, "$(PS):getCurrent")
 }
 
 record (ai, "$(PS):getCurrent")
 {
-	field (DESC, "Get SGA Set Current")
-	field (SCAN, "1 second")
-	field (DTYP, "stream")
-	field (INP, "@common.proto getCurrent $(port)")
+	field(DESC, "Get SGA Set Current")
+	field(SCAN, "1 second")
+	field(PREC, 2)
+	field(DTYP, "stream")
+	field(INP, "@common.proto getCurrent $(port)")
 }
 
 record (ao, "$(PS):setVoltage")
 {
-	field (DESC, "Set SGA Voltage to 0")
-	field (SCAN, "Passive")
-	field (DTYP, "stream")
-	field (OUT, "@common.proto setVoltageZero $(port)")
+	field(DESC, "Set SGA Voltage to 0")
+	field(SCAN, "Passive")
+	field(DTYP, "stream")
+	field(OUT, "@common.proto setVoltageZero $(port)")
 }
 
 record (ai, "$(PS):getVoltage")
 {
-	field (DESC, "Get SGA Set Voltage")
-	field (SCAN, "1 second")
-	field (DTYP, "stream")
-	field (INP, "@common.proto getVoltage $(port)")
+	field(DESC, "Get SGA Set Voltage")
+	field(PREC, 2)
+	field(SCAN, "1 second")
+	field(DTYP, "stream")
+	field(INP, "@common.proto getVoltage $(port)")
 }
 
 record (ao, "$(PS):setProtVoltage")
 {
-	field (DESC, "Set SGA Protection Voltage")
-	field (SCAN, "Passive")
-	field (DTYP, "stream")
-	field (OUT, "@common.proto setProtVoltage $(port)")
-	field (FLNK, "$(PS):getProtVoltage")
+	field(DESC, "Set SGA Protection Voltage")
+	field(SCAN, "Passive")
+	field(DTYP, "stream")
+	field(OUT, "@common.proto setProtVoltage $(port)")
+	field(FLNK, "$(PS):getProtVoltage")
 }
 
 record (ai, "$(PS):getProtVoltage")
 {
-	field (DESC, "Get SGA Protection")
-	field (SCAN, "10 second")
-	field (DTYP, "stream")
-	field (INP, "@common.proto getProtVoltage $(port)")
+	field(DESC, "Get SGA Protection")
+	field(SCAN, "10 second")
+	field(DTYP, "stream")
+	field(INP, "@common.proto getProtVoltage $(port)")
+	field(PREC, 2)
 }
 
 record (bi, "$(PS):getStatus")
 {
-	field (DESC, "Get SGA Status")
-	field (ZNAM, "Off")
-	field (ONAM, "On")
-	field (SCAN, "Passive")
-	field (DTYP, "stream")
-	field (INP, "@common.proto getStatus $(port)")
-}
-
-record (bo, "$(PS):setOut")
-{
-	field (DESC, "Set SGA Outpu Off")
-	field (ZNAM, "OFF")
-	field (ONAM, "ON")
-	field (SCAN, "Passive")
-	field (DTYP, "stream")
-	field (OUT, "@common.proto setOutputState $(port)")
+	field(DESC, "Get SGA Status")
+	field(ZNAM, "Off")
+	field(ONAM, "On")
+	field(SCAN, "Passive")
+	field(DTYP, "stream")
+	field(INP, "@common.proto getStatus $(port)")
 }
 
 record (ai, "$(PS):getCurrent")
 {
-	field (DESC, "Get SGA Set Current")
-	field (SCAN, "1 second")
-	field (DTYP, "stream")
-	field (INP,  "@common.proto getCurrent $(port)")
+	field(DESC, "Get SGA Set Current")
+	field(SCAN, "1 second")
+	field(DTYP, "stream")
+	field(INP,  "@common.proto getCurrent $(port)")
+	field(PREC, 2)
 }
 
 record (ai, "$(PS):getOutCurrent")
 {
-	field (DESC, "Get SGA Output Current")
-	field (SCAN, ".1 second")
-	field (DTYP, "stream")
-	field (INP, "@common.proto getOutCurrent $(port)")
+	field(DESC, "Get SGA Output Current")
+	field(SCAN, ".1 second")
+	field(DTYP, "stream")
+	field(INP, "@common.proto getOutCurrent $(port)")
+	field(PREC, 2)
 }
 
 record (ai, "$(PS):getOutVoltage")
 {
-	field (DESC, "Get SGA Output Voltage")
-	field (SCAN, ".1 second")
-	field (DTYP, "stream")
-	field (INP, "@common.proto getOutVoltage $(port)")
+	field(DESC, "Get SGA Output Voltage")
+	field(SCAN, ".1 second")
+	field(DTYP, "stream")
+	field(INP, "@common.proto getOutVoltage $(port)")
+	field(PREC, 2)
 }
 
 record (ai, "$(PS):getOutPower")
 {
-	field (DESC, "Get SGA Output Power")
-	field (SCAN, ".1 second")
-	field (DTYP, "stream")
-	field (INP, "@common.proto getOutPower $(port)")
+	field(DESC, "Get SGA Output Power")
+	field(SCAN, ".1 second")
+	field(DTYP, "stream")
+	field(INP, "@common.proto getOutPower $(port)")
+	field(PREC, 2)
 }
 

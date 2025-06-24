@@ -18,10 +18,10 @@ RUN chmod +x /tmp/epics_install.sh \
 COPY ioc/ /ioc/
 
 # Copy run script
-COPY scripts/run_ioc.sh /usr/local/bin/run_ioc.sh
-RUN chmod +x /usr/local/bin/run_ioc
+COPY scripts/run_ioc.sh /ioc/run_ioc.sh
+RUN chmod +x /ioc/run_ioc.sh
 
-WORKDIR /ioc
-
-# ENTRYPOINT ["/usr/local/bin/run_ioc"]
-ENTRYPOINT ["/bin/sh", "-c", "sleep infinity"]
+WORKDIR /opt/ioc
+ 
+ENTRYPOINT ["/ioc/run_ioc.sh"]
+# ENTRYPOINT ["/bin/sh", "-c", "sleep infinity"]
